@@ -14,7 +14,7 @@ export default function Home() {
           priority
         />
         <div className={styles.intro}>
-          <h1>CST-391 Music App - Noah</h1>
+          <h1>CST-391 Music App - Noah Starkenburg</h1>
           <p>
             Looking for a starting point or more instructions? Head over to{" "}
             <a
