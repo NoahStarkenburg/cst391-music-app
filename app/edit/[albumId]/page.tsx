@@ -56,8 +56,8 @@ export default function EditAlbumPage() {
                 <input placeholder="Title" value={album.title} onChange={onChange("title")} />
                 <input placeholder="Artist" value={album.artist} onChange={onChange("artist")} />
                 <input placeholder="Year" value={album.year} onChange={onChange("year")} />
-                <textarea placeholder="Description" value={album.description} onChange={onChange("description")} />
-                <input placeholder="Image URL" value={album.image} onChange={onChange("image")} />
+                <textarea placeholder="Description" value={album.description ?? ""} onChange={onChange("description")} />
+                <input placeholder="Image URL" value={album.image ?? ""} onChange={onChange("image")} />
                 <button type="submit">{albumId ? "Update" : "Save"}</button>
             </form>
         </main>
