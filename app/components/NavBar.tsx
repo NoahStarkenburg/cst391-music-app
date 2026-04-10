@@ -5,9 +5,7 @@ import { useEffect } from 'react';
 
 export default function NavBar() {
   useEffect(() => {
-    // @ts-expect-error: Bootstrap's JavaScript bundle lacks TypeScript definitions.
-    // This dynamic import loads Bootstrap's collapse, dropdown, and modal functionality on the client.
-    // Safe to ignore the type error because this runs only in the browser and does not affect SSR.
+    // @ts-expect-error: g
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
   }, []);
 
