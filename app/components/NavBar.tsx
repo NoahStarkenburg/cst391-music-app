@@ -31,6 +31,9 @@ export default function NavBar() {
           <Link href="/new" className="nav-item nav-link">
             New
           </Link>
+          <Link href="/about" className="nav-item nav-link">
+            About
+          </Link>
         </div>
       </div>
     </nav>

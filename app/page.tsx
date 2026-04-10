@@ -8,8 +8,8 @@ import { Album } from "@/lib/types";
 import { get } from "@/lib/apiClient";
 import NavBar from "./components/NavBar";
 // import AlbumCard from "./components/AlbumCard";
-// import SearchAlbum from "./components/SearchAlbum"; // CHANGED: adjust import paths for /app structure
-import AlbumList from "./components/AlbumList";
+import SearchAlbum from "./components/SearchAlbum"; // CHANGED: adjust import paths for /app structure
+// import AlbumList from "./components/AlbumList";
 // import EditAlbum from "../components/EditAlbum";
 // import OneAlbum from "../components/OneAlbum";
 // import dataSource from "../lib/dataSource"; // CHANGED: move dataSource to /lib for Next.js convention
@@ -79,50 +79,17 @@ export default function Page() {
       <NavBar />
       {/* CHANGED: Render SearchAlbum directly here; other routes (new, edit, show)
           will be separate pages: /new/page.tsx, /edit/[albumId]/page.tsx, etc. */}
-      {/* <SearchAlbum
+      <SearchAlbum
         updateSearchResults={updateSearchResults}
         albumList={renderedList}
         updateSingleAlbum={(albumId: number, uri: string) => updateSingleAlbum(albumId, uri)}
-      /> */}
-
-      <AlbumList
-        albumList={renderedList}
-        onClick={(albumId: number, uri: string) => updateSingleAlbum(albumId, uri)}
       />
-
-      <h1>Noah Starkenburg&apos;s Album List (Debug View)</h1>
-      <p>This JSON data is rendered directly from the API response.</p>
 
       {/* Show error message if API call fails */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* CHANGED: render JSON data inline */}
-      {!error && (
-        <pre
-          style={{
-            backgroundColor: "#f4f4f4",
-            padding: "1rem",
-            borderRadius: "8px",
-            overflow: "auto",
-            color: "#111",
-            fontSize: "0.9rem",
-            lineHeight: "1.4",
-          }}
-        >
-          {albumList.length > 0 && JSON.stringify(albumList, null, 2)}
-        </pre>
-      )}
-
       {/* CHANGED: simple conditional view */}
       {albumList.length === 0 && !error && <p>Loading albums...</p>}
-
-      {/* Show only the first album card once albums are fetched */}
-      {/* {albumList.length > 0 && (
-        <AlbumCard
-          album={albumList[0]}
-          onClick={(album, uri) => updateSingleAlbum(album.id, uri)}
-        />
-      )} */}
     </main>
   );
 }
