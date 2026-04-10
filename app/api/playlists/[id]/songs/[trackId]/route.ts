@@ -3,7 +3,6 @@ import { getPool } from '@/lib/db';
 
 export const runtime = 'nodejs';
 
-// DELETE /api/playlists/:id/songs/:trackId - Remove a song from a playlist
 export async function DELETE(
   request: NextRequest,
   context: { params: Promise<{ id: string; trackId: string }> }
@@ -28,7 +27,6 @@ export async function DELETE(
       return NextResponse.json({ error: 'Song not found in playlist' }, { status: 404 });
     }
 
-    // Reorder remaining positions
     await pool.query(
       `WITH ranked AS (
          SELECT id, ROW_NUMBER() OVER (ORDER BY position) as new_pos

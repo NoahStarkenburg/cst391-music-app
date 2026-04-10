@@ -3,7 +3,6 @@ import { getPool } from '@/lib/db';
 
 export const runtime = 'nodejs';
 
-// POST /api/playlists/:id/songs - Add a song to a playlist
 export async function POST(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
@@ -24,19 +23,16 @@ export async function POST(
 
     const pool = getPool();
 
-    // Check playlist exists
     const playlistCheck = await pool.query('SELECT id FROM playlists WHERE id = $1', [playlistId]);
     if (playlistCheck.rows.length === 0) {
       return NextResponse.json({ error: 'Playlist not found' }, { status: 404 });
     }
 
-    // Check track exists
     const trackCheck = await pool.query('SELECT id FROM tracks WHERE id = $1', [track_id]);
     if (trackCheck.rows.length === 0) {
       return NextResponse.json({ error: 'Track not found' }, { status: 404 });
     }
 
-    // Check if song already in playlist
     const dupeCheck = await pool.query(
       'SELECT id FROM playlist_songs WHERE playlist_id = $1 AND track_id = $2',
       [playlistId, track_id]
@@ -45,14 +41,12 @@ export async function POST(
       return NextResponse.json({ error: 'Song already in playlist' }, { status: 409 });
     }
 
-    // Get next position
     const posRes = await pool.query(
       'SELECT COALESCE(MAX(position), 0) + 1 as next_pos FROM playlist_songs WHERE playlist_id = $1',
       [playlistId]
     );
     const nextPosition = posRes.rows[0].next_pos;
 
-    // Insert
     const result = await pool.query(
       `INSERT INTO playlist_songs (playlist_id, track_id, position)
        VALUES ($1, $2, $3) RETURNING *`,

@@ -1,24 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPool } from '@/lib/db';
-import { Playlist, PlaylistSong } from '@/lib/types';
+import { Playlist } from '@/lib/types';
 
 export const runtime = 'nodejs';
 
-// GET /api/playlists - List all public playlists (admins see all)
 export async function GET(request: NextRequest) {
   try {
     const pool = getPool();
     const url = new URL(request.url);
-    const showAll = url.searchParams.get('all') === 'true'; // admin param
+    const showAll = url.searchParams.get('all') === 'true';
 
     let playlistsData;
     if (showAll) {
-      // Admin view: all playlists including private
       playlistsData = await pool.query(
         'SELECT * FROM playlists ORDER BY created_at DESC'
       );
     } else {
-      // Default: only public playlists
       playlistsData = await pool.query(
         'SELECT * FROM playlists WHERE is_public = true ORDER BY created_at DESC'
       );
@@ -26,7 +23,6 @@ export async function GET(request: NextRequest) {
 
     const playlists: Playlist[] = playlistsData.rows;
 
-    // Attach song count to each playlist
     if (playlists.length > 0) {
       const playlistIds = playlists.map(p => p.id);
       const countsRes = await pool.query(
@@ -52,7 +48,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/playlists - Create a new playlist
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

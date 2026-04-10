@@ -4,7 +4,6 @@ import { Playlist, PlaylistSong } from '@/lib/types';
 
 export const runtime = 'nodejs';
 
-// GET /api/playlists/:id - View playlist details with songs
 export async function GET(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
@@ -18,7 +17,6 @@ export async function GET(
   try {
     const pool = getPool();
 
-    // Get playlist
     const playlistRes = await pool.query(
       'SELECT * FROM playlists WHERE id = $1',
       [playlistId]
@@ -29,7 +27,6 @@ export async function GET(
 
     const playlist: Playlist = playlistRes.rows[0];
 
-    // Get songs with track and album info
     const songsRes = await pool.query(
       `SELECT ps.id, ps.playlist_id, ps.track_id, ps.added_at, ps.position,
               t.title as track_title, t.number as track_number,
@@ -51,7 +48,6 @@ export async function GET(
   }
 }
 
-// PUT /api/playlists/:id - Update playlist metadata
 export async function PUT(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
@@ -68,7 +64,6 @@ export async function PUT(
 
     const pool = getPool();
 
-    // Check playlist exists
     const existing = await pool.query('SELECT id FROM playlists WHERE id = $1', [playlistId]);
     if (existing.rows.length === 0) {
       return NextResponse.json({ error: 'Playlist not found' }, { status: 404 });
@@ -91,7 +86,6 @@ export async function PUT(
   }
 }
 
-// DELETE /api/playlists/:id - Delete a playlist
 export async function DELETE(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
