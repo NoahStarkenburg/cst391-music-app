@@ -32,8 +32,9 @@ export default function AlbumCard({ album, onClick }: AlbumCardProps) {
     };
 
     return (
-        <div className='card' style={{ width: '18rem' }}>
-            <img src={album.image ?? ''} className='card-img-top' alt='Album Cover' />
+        <div className='col-sm-4 mb-3'>
+        <div className='card'>
+            {album.image && <img src={album.image} className='card-img-top' alt='Album Cover' />}
             <div className='card-body'>
                 <h5 className='card-title'>{album.title}</h5>
                 <p className='card-text'>{album.description}</p>
@@ -50,6 +51,7 @@ export default function AlbumCard({ album, onClick }: AlbumCardProps) {
                     Edit
                 </button>
             </div>
+        </div>
         </div>
     );
 }

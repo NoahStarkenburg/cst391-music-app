@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 import { Album } from "@/lib/types";
 import { get } from "@/lib/apiClient";
 import NavBar from "./components/NavBar";
-import AlbumCard from "./components/AlbumCard";
+// import AlbumCard from "./components/AlbumCard";
 // import SearchAlbum from "./components/SearchAlbum"; // CHANGED: adjust import paths for /app structure
-// import AlbumList from "./components/AlbumList";
+import AlbumList from "./components/AlbumList";
 // import EditAlbum from "../components/EditAlbum";
 // import OneAlbum from "../components/OneAlbum";
 // import dataSource from "../lib/dataSource"; // CHANGED: move dataSource to /lib for Next.js convention
@@ -85,10 +85,10 @@ export default function Page() {
         updateSingleAlbum={(albumId: number, uri: string) => updateSingleAlbum(albumId, uri)}
       /> */}
 
-      {/* <AlbumList
+      <AlbumList
         albumList={renderedList}
         onClick={(albumId: number, uri: string) => updateSingleAlbum(albumId, uri)}
-      /> */}
+      />
 
       <h1>Noah Starkenburg&apos;s Album List (Debug View)</h1>
       <p>This JSON data is rendered directly from the API response.</p>
@@ -117,12 +117,12 @@ export default function Page() {
       {albumList.length === 0 && !error && <p>Loading albums...</p>}
 
       {/* Show only the first album card once albums are fetched */}
-      {albumList.length > 0 && (
+      {/* {albumList.length > 0 && (
         <AlbumCard
           album={albumList[0]}
           onClick={(album, uri) => updateSingleAlbum(album.id, uri)}
         />
-      )}
+      )} */}
     </main>
   );
 }

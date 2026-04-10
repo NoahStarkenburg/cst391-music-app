@@ -24,7 +24,7 @@ const AlbumList = (props: AlbumListProps) => {
             />
         );
     });
-    return <div className='container'>{albums}</div>;
+    return <div className='container'><div className='row'>{albums}</div></div>;
 };
 
 export default AlbumList;
