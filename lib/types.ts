@@ -25,6 +25,7 @@ export interface Playlist {
   is_public: boolean;
   created_at: string;
   songs?: PlaylistSong[];
+  song_count?: number;
 }
 
 export interface PlaylistSong {

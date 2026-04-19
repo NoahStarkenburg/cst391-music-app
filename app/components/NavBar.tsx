@@ -2,16 +2,20 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function NavBar() {
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === 'admin';
+
   useEffect(() => {
-    // @ts-expect-error: g
+    // @ts-expect-error: bootstrap js import
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
   }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <span className="navbar-brand">My Music</span>
+      <Link href="/" className="navbar-brand">Music App</Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -24,16 +28,29 @@ export default function NavBar() {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
-          <Link href="/" className="nav-item nav-link">
-            Main
-          </Link>
-          <Link href="/new" className="nav-item nav-link">
-            New
+        <div className="navbar-nav me-auto">
+          {isAdmin && (
+            <Link href="/new" className="nav-item nav-link">
+              New Album
+            </Link>
+          )}
+          <Link href="/playlists" className="nav-item nav-link">
+            Playlists
           </Link>
           <Link href="/about" className="nav-item nav-link">
             About
           </Link>
+        </div>
+        <div className="navbar-nav">
+          {session ? (
+            <Link href="/api/auth/signout" className="nav-item nav-link">
+              Sign Out
+            </Link>
+          ) : (
+            <Link href="/api/auth/signin" className="nav-item nav-link">
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
     </nav>

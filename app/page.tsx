@@ -2,6 +2,7 @@
 // CHANGED: Next.js uses TypeScript and server/client separation.
 // This component uses hooks and interactivity, so we must mark it as a Client Component.
 "use client";
+export const dynamic = "force-dynamic";
 
 import { useState, useEffect } from "react";
 import { Album } from "@/lib/types";
