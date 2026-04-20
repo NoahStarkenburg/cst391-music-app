@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import * as playlistService from "@/lib/services/playlistService";
 import { requireUser } from "@/lib/auth";
 
-export const runtime = "nodejs";
-
 export async function POST(request: NextRequest, context: { params: Promise<{ id: string }> }) {
     const auth = await requireUser();
     if (auth instanceof NextResponse) return auth;

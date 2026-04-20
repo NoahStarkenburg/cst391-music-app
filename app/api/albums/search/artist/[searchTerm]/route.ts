@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as albumService from "@/lib/services/albumService";
 
-export const runtime = "nodejs";
-
 export async function GET(_req: NextRequest, context: { params: Promise<{ searchTerm: string }> }) {
     const { searchTerm } = await context.params;
     try {

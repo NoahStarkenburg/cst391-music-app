@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import * as playlistService from "@/lib/services/playlistService";
 import { getSession, requireUser } from "@/lib/auth";
 
-export const runtime = "nodejs";
-
 export async function GET() {
     try {
         const session = await getSession();

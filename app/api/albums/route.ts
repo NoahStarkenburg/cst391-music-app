@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import * as albumService from "@/lib/services/albumService";
 import { requireAdmin } from "@/lib/auth";
 
-export const runtime = "nodejs";
-
 export async function GET() {
     try {
         const albums = await albumService.getAll();
